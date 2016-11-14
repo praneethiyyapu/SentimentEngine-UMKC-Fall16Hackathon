@@ -1,0 +1,422 @@
+<!doctype html>
+<html>
+<head>
+    <title>Sentiment Engine</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+   
+   <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<style>
+
+	html,body{
+		height:100%;
+		background-color:"#E6E6FA";
+
+	}
+	.google-visualization-table-td {
+text-align: center !important;
+
+}
+
+.google-visualization-table-tr {
+background-color: #FF0000;
+
+}
+	.container{
+		background-image:url("bg.jpg");
+		width:100%;
+		height:100%;
+		background-size:cover;
+		background-position: center;
+		padding-top: 25px;
+		color:"#E6E6FA";
+
+	}
+
+
+	.center{
+		text-align: center;
+
+	}
+
+	.white{
+		color:white;
+	}
+	p{
+		padding-top: 15px;
+		padding-bottom:15px;
+	}
+
+	button{
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	.alert{
+		margin-top: 20px;
+		display:none;
+	
+	}
+	.whiteBackground{
+		background-color:white;
+		padding:20px;
+		border-radius:20px;
+	}
+	button{
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	.alert{
+		margin-top: 20px;
+		display:none;
+	
+	}
+	.whiteBackground{
+		background-color:white;
+		padding:20px;
+		border-radius:20px;
+	}
+	#btnShow{
+		position:relative;
+		left:230px;
+		bottom:48px;
+	}
+	#fUpload{
+		position:relative;
+		right:15px;
+	}
+	#ulList{
+		display:none;
+	}
+	#imgUpload{
+		position:relative;
+		left:250px;
+		bottom:40px;
+		padding:0px;
+		margin:0px;
+		border-radius:0px;
+	}
+	.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
+	</style>
+
+ </head>
+
+<body bgcolor="#E6E6FA">
+
+
+	<div class = "container" style="position:relative; bottom:35px;">
+
+				<div class = "col-md-6 col-md-offset-3 center whiteBackground">
+					<h1 class = "center ">Sentiment Engine</h1>
+					<p class = "lead center ">Find out interesting information on tweets!</p>
+					<!-- <input type=text placeholder="Search for tweet" /> -->
+					<div class="dropdown">
+<button onclick="myFunction()" class="dropbtn" style="position:relative; bottom:20px;">Choose tweet for analysis</button>
+  <div id="myDropdown" class="dropdown-content" style="z-index: 999;">
+    <a id="election2016">Election2016</a>
+    <a >ElectionNight</a>
+    <a id="trump">Trump</a>
+    <a >MakeAmericaGreatAgain</a>
+    <a >imstillwithher</a>
+    <a id="electionday">ElectionDay</a>
+    <a id="hillary">Hillary</a>
+    <a id="calexit">CalExit</a>
+    
+    <a >NotMyPresident</a>
+    
+    <a >ElectionResults</a>
+    
+    <a >TrumpPresident</a>
+    <a >trumpprotest</a>
+    <a >election</a>
+  </div>
+</div>
+					<ul id="ulList"></ul>
+					<div id="d1"></div>
+				<form>
+					<div class = "form-group">
+						
+					</div>
+				<!-- <button id = "findMyPostcode" class = "btn btn-success btn-lg "> Get Sentiment</button> -->
+				</form>
+
+				
+				<div id = "forecast" class = "alert alert-success" style="position:relative; bottom:25px;">Success!</div>
+				<div id = "success" class = "alert alert-success" style="position:relative; bottom:25px;">Success!</div>
+				<div id ="positive" class="alert alert-success" style="position:relative; bottom:25px;">
+				<strong>Positive!</strong> The overall sentiment of the tweet is positive.
+				</div>
+				
+				<div id= "neutral" class="alert alert-info" style="position:relative; bottom:25px;">
+				<strong>Neutral!</strong> The overall sentiment of the document is neutral.
+				</div>
+				<div id="negative" class="alert alert-danger" style="position:relative; bottom:25px;">
+				<strong>Negative!</strong> The overall sentiment of the document is negative.
+				</div>
+				</div>
+			</div> 
+			<div id="piechart" style="width: 800px; height: 425px; position:relative; bottom:350px; right:75px;"></div>
+			<div id="columnchart_values" style="width: 300px; height: 300px; position:relative; bottom:775px; left:500px;"></div>
+			<div id="table_div" style="width: 300px; height: 300px; position:relative; bottom:1035px; left:930px;"></div>
+	</div>
+
+
+	
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+//google chart
+google.charts.load('current', {'packages':['corechart', 'gauge', 'table']});
+//google.charts.setOnLoadCallback(processJSON1);
+
+
+        
+
+$(document).ready(function(){
+$("#btnShow").on('click', function () {
+    $("#ulList").empty();
+    var fp = $("#fUpload");
+    var lg = fp[0]
+    .files.length; // get length
+    var items = fp[0].files;
+    var fragment = "";
+    if (lg > 0) {
+        for (var i = 0; i < lg; i++) {
+            var fileName = items[i].name; // get file name
+            var fileSize = items[i].size; // get file size 
+            var fileType = items[i].type; // get file type
+          // append li to UL tag to display File info
+         fragment += "<li>" + fileName + " " + fileSize + " bytes. Type :" + fileType + "</li>";
+        }
+       $("#ulList").append(fileName);
+	   $("#imgUpload").html("Document uploaded!");
+    }
+});
+});
+
+$("#election2016").click(function(event){
+        event.preventDefault();
+
+		
+        $.ajax({
+                type: "GET",
+                url: "http://gateway-a.watsonplatform.net/calls/url/URLGetCombinedData?url=http://pastebin.com/raw/CDNywXVU&outputMode=json&apikey=bf6b48e8816a8958b40a8df313c2d454cec3d5c0&extract=entities,keywords,doc-emotion,doc-sentiment&sentiment=1&emotion=1" ,
+                //url:"https://api.mongolab.com/api/1/databases/election_db/collections/election2016/?apiKey=LwXMI0A5YY5a1Oww9yCBc7UdlzCFWpA2",
+                dataType: "json",
+                success: processJSON1
+              });
+   });	
+
+$("#trump").click(function(event){
+        event.preventDefault();
+
+		
+        $.ajax({
+                type: "GET",
+                url: "http://gateway-a.watsonplatform.net/calls/url/URLGetCombinedData?url=http://pastebin.com/raw/E4D2mk0Z&outputMode=json&apikey=bf6b48e8816a8958b40a8df313c2d454cec3d5c0&extract=entities,keywords,doc-emotion,doc-sentiment&sentiment=1&emotion=1" ,
+                //url:"https://api.mongolab.com/api/1/databases/election_db/collections/election2016/?apiKey=LwXMI0A5YY5a1Oww9yCBc7UdlzCFWpA2",
+                dataType: "json",
+                success: processJSON1
+              });
+   });
+
+$("#electionday").click(function(event){
+        event.preventDefault();
+
+		
+        $.ajax({
+                type: "GET",
+                url: "http://gateway-a.watsonplatform.net/calls/url/URLGetCombinedData?url=http://pastebin.com/raw/3ENsKt6B&outputMode=json&apikey=bf6b48e8816a8958b40a8df313c2d454cec3d5c0&extract=entities,keywords,doc-emotion,doc-sentiment&sentiment=1&emotion=1" ,
+                //url:"https://api.mongolab.com/api/1/databases/election_db/collections/election2016/?apiKey=LwXMI0A5YY5a1Oww9yCBc7UdlzCFWpA2",
+                dataType: "json",
+                success: processJSON1
+              });
+   });
+
+$("#hillary").click(function(event){
+        event.preventDefault();
+
+		
+        $.ajax({
+                type: "GET",
+                url: "http://gateway-a.watsonplatform.net/calls/url/URLGetCombinedData?url=http://pastebin.com/raw/LJkM4VX9&outputMode=json&apikey=bf6b48e8816a8958b40a8df313c2d454cec3d5c0&extract=entities,keywords,doc-emotion,doc-sentiment&sentiment=1&emotion=1" ,
+                //url:"https://api.mongolab.com/api/1/databases/election_db/collections/election2016/?apiKey=LwXMI0A5YY5a1Oww9yCBc7UdlzCFWpA2",
+                dataType: "json",
+                success: processJSON1
+              });
+   });
+
+$("#calexit").click(function(event){
+        event.preventDefault();
+
+		
+        $.ajax({
+                type: "GET",
+                url: "http://gateway-a.watsonplatform.net/calls/url/URLGetCombinedData?url=http://pastebin.com/raw/Lat5JVSQ&outputMode=json&apikey=bf6b48e8816a8958b40a8df313c2d454cec3d5c0&extract=entities,keywords,doc-emotion,doc-sentiment&sentiment=1&emotion=1" ,
+                //url:"https://api.mongolab.com/api/1/databases/election_db/collections/election2016/?apiKey=LwXMI0A5YY5a1Oww9yCBc7UdlzCFWpA2",
+                dataType: "json",
+                success: processJSON1
+              });
+   });
+
+
+
+function processJSON1(data) {
+	                    //$("#forecast").fadeIn();
+						//$("#forecast").html("The document is in "+"<strong>"+data.language+"</strong>"+" language");
+
+						 if(data.docSentiment.type=="positive"){
+						 $("#negative").fadeOut();
+						 $('#neutral').fadeOut();
+						 $("#positive").fadeIn();
+
+							
+						 }
+						 else if(data.docSentiment.type=="negative"){
+						 $("#positive").fadeOut();
+						 $('#neutral').fadeOut();
+						 $("#negative").fadeIn();
+
+							
+						 }
+						 else if(data.docSentiment.type=="neutral"){
+						 $("#positive").fadeOut();
+						 $('#negative').fadeOut();
+						 $("#neutral").fadeIn();
+							
+						 }
+
+						var data2 = google.visualization.arrayToDataTable([
+          ['Emotion', 'Percentage'],
+          ['Disgust',      parseFloat(data.docEmotions.disgust)*100],
+          [ 'Anger',     parseFloat(data.docEmotions.anger)*100],
+          ['Fear',  parseFloat(data.docEmotions.fear)*100],
+          ['Joy', parseFloat(data.docEmotions.joy)*100],
+          ['Sadness',    parseFloat(data.docEmotions.sadness)*100]
+        ]);
+
+        var options = {
+          title: 'Emotion Analysis'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data2, options);
+
+        var data1 = google.visualization.arrayToDataTable([
+        ['Genre', data.docSentiment.type,  { role: 'annotation' } ],
+        ['Overall Hashtag Sentiment', parseFloat(data.docSentiment.score), '']
+      ]);
+
+
+      var view = new google.visualization.DataView(data1);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options1 = {
+        width: 400,
+        height: 400,
+        legend: { position: 'top', maxLines: 1 },
+        bar: { groupWidth: '25%' },
+        isStacked: true,
+      };
+      var chart1 = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart1.draw(view, options1);
+
+
+      var data3 = new google.visualization.DataTable();
+        data3.addColumn('string', 'Top Keywords	');
+        data3.addColumn('number', 'Relevance');
+        data3.addRows([
+          [data.keywords[0].text,  {v: parseFloat(data.keywords[0].relevance)}],
+          [data.keywords[1].text,  {v: parseFloat(data.keywords[1].relevance)}],
+          [data.keywords[2].text,  {v: parseFloat(data.keywords[2].relevance)}],
+          [data.keywords[3].text,  {v: parseFloat(data.keywords[3].relevance)}],
+          [data.keywords[4].text,  {v: parseFloat(data.keywords[4].relevance)}]
+        ]);
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data3, { width: '100%', height: '100%'});
+						
+        }	
+
+
+
+    
+   /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+   
+
+</script>
+
+</body>
+</html>
