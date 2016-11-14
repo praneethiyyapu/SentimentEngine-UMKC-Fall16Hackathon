@@ -8,10 +8,9 @@ Extracted the text data from the tweets and posted the text data to IBM Watson's
 
 Retrieved the results visualiszed some interesting data using Google Charts
 
-For each Hash tag, we have displayed 3 charts: 
-Emotion analysis
-Sentiment analysis
-Top Keywords and Relevance
+For each Hash tag, we have displayed 3 charts:  
+
+Emotion analysis, Sentiment analysis, Top Keywords and Relevance
 
 
 Tools/Technologies used: Python, Tweepy API, JavaScript, AJAX, jQuery,  Bootstrap, CSS3, HTML5, Tweepy API, Google Charts API, Alchemy API
