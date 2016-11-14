@@ -12,7 +12,8 @@ For each Hash tag, we have displayed 3 charts:
 
 Emotion analysis, Sentiment analysis, Top Keywords and Relevance
 
-
 Tools/Technologies used: Python, Tweepy API, JavaScript, AJAX, jQuery,  Bootstrap, CSS3, HTML5, Tweepy API, Google Charts API, Alchemy API
+
+The working demo of the application can be found at: https://www.youtube.com/watch?v=NuLpM3k2LmE
 
 
